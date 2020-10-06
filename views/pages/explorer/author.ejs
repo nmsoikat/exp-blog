@@ -1,0 +1,30 @@
+<%- include('../../partials/siteHeader.ejs')%>
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-12">
+      <div class="card card-body mb-3">
+        <img src="<%= author.profilePics %>" class="img-thumbnail rounded" width="200">
+        <h5><%= author.username%></h5>
+        <p class="text-muted"><%= author.profileId.title%></p>
+        <p>Bio: <%= author.profileId.bio%></p>
+      </div>
+      <% for(post of author.profileId.posts) { %>
+      <div class="card card-body mt-2">
+        <a href="<%= `/explorer/${post._id}`%>" style="color: #222222;">
+          <div class="d-flex">
+            <img src="<%= post.thumbnail %>" class="img-thumbnail border" width="150">
+            <div class="ml-3">
+              <h5><%= post.title%></h5>
+              <p><%= truncate(post.body)%></p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<%- include('../../partials/siteFooter.ejs')%>
+</body>
+
+</html>

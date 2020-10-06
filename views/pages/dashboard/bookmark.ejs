@@ -1,0 +1,35 @@
+<%- include('../../partials/siteHeader') %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 my-3">
+      <%- include('../../partials/sidebar.ejs') %>
+    </div>
+    <div class="col-md-10 my-3">
+      <div class="card card-body">
+        <h5>Your bookmarks list</h5>
+        <div class="row">
+          <% if(bookmarks.length === 0) {%>
+          <p class="text-center text-muted my-5">You did not create any bookmark</p>
+          <% } else {%>
+          <% for(let bookmark of bookmarks) {%>
+          <div class="card col-sm-3 py-2 mx-2">
+            <a href="<%= `/explorer/${bookmark._id}`%>" style="color: #222;">
+              <img src="<%= bookmark.thumbnail%>" class="card-img">
+              <p><%= bookmark.title%></p>
+            </a>
+          </div>
+          <% } %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/siteFooter') %>
+
+</body>
+
+</html>

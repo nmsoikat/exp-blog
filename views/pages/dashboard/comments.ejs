@@ -1,0 +1,65 @@
+<%- include('../../partials/siteHeader') %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 my-3">
+      <%- include('../../partials/sidebar.ejs') %>
+    </div>
+    <div class="col-md-10 my-3">
+      <div class="card card-body">
+        <h5>Your Comments list</h5>
+        <div class="col-sm-12">
+          <div class="mt-5" id="comment-holder">
+            <% if(comments.length === 0) {%>
+            <p class="text-muted text-center my-5">There is no comment</p>
+            <% } else {%>
+            <% for(let comment of comments.reverse()) {%>
+            <div class="media border mt-3">
+              <img src="<%= comment.userId.profilePics %>" class="rounded-circle mx-3 my-3" style="width: 40px;">
+
+              <div class="media-body my-3">
+                <p class="text-muted">
+                  On Post <b><%= comment.postId.title%></b> By <a
+                    href="<%= `/author/${comment.userId._id}`%>"><%= comment.userId.username%></a>,
+                  <%= moment(comment.createdAt)%>
+                </p>
+                <p>
+                  <%= comment.body%>
+                </p>
+                <div name="replies">
+                  <% if(comment.replies.length > 0) {%>
+                  <% for (let reply of comment.replies) {%>
+                  <% //console.log("reply:->",reply.userId); %>
+                  <div class="media mt-2 mr-2">
+                    <img style="width:40px" src="<%=reply.userId.profilePics %>"
+                      class="align-selft-start mr-3 rounded-circle" />
+                    <div class="media-body">
+                      <p> <%=reply.body %> </p>
+                    </div>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </div>
+
+                <div class="my-3">
+                  <input type="text" class="form-control" placeholder="Press Enter to Reply" name="reply"
+                    data-comment="<%= comment._id%>">
+                </div>
+              </div>
+            </div>
+            <% } %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/siteFooter') %>
+
+<script src="/scripts/comments.js"></script>
+</body>
+
+</html>

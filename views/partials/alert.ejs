@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row mt-1">
+    <div class="offset-sm-3 col-sm-6">
+      <% if(flashMessage.success) {%>
+      <div id="alert" class="alert alert-success data-dismissible fade show">
+        <strong>Success</strong> <%= flashMessage.success %>
+        <button class="close" data-dismiss="alert">
+          <span>&times;</span>
+        </button>
+      </div>
+      <%}%>
+      <% if(flashMessage.fail) {%>
+      <div id="alert" class="alert alert-danger data-dismissible fade show">
+        <strong>Failed</strong> <%= flashMessage.fail %>
+        <button class="close" data-dismiss="alert">
+          <span>&times;</span>
+        </button>
+      </div>
+      <%}%>
+    </div>
+  </div>
+</div>

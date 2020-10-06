@@ -1,0 +1,30 @@
+<%- include('../partials/siteHeader', {title:'upload file'}) %>
+<div class="container">
+  <div class="row my-3">
+    <div class="col-md-6 offset-md-3">
+      <div class="card card-body">
+        <form action="/playground/play" method="POST" enctype="multipart/form-data">
+          <h2 class="mb-3">Login your account</h2>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" name="name" id="name" class="form-control" placeholder="Enter your valid name">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="my-file">Choose</label>
+            <input type="file" name="my-file" id="my-file" class="form-control" placeholder="choose image">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="text-right">
+            <input type="submit" value="Upload" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/siteFooter') %>
+
+</body>
+
+</html>

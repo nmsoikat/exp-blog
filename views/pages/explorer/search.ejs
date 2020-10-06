@@ -1,0 +1,45 @@
+<%- include('../../partials/siteHeader.ejs')%>
+<div class="container">
+  <h3 class="mt-3">Here is search result for - <%= searchTerm %></h3>
+  <div class="row">
+    <% if(posts.length === 0) { %>
+    <p class="text-center text-muted my-5">Nothing Found </p>
+    <% } else { %>
+    <% for(let post of posts) { %>
+    <div class="card card-body mt-3">
+      <a href="<%= `/explorer/${post._id}`%>" style="color: #222222; text-decoration: none;">
+        <h5><%= post.title %></h5>
+        <p><%= truncate(post.body) %></p>
+      </a>
+    </div>
+    <% } %>
+    <% } %>
+  </div>
+
+  <div class="row my-5">
+    <% if(totalPage > 1) {%>
+    <ul class="pagination mx-auto">
+      <li class="page-item <%= currentPage === 1 ? 'disabled' : ''%>">
+        <a href="<%=`/search?term=${searchTerm}&page=${currentPage - 1}`%>" class="page-link">Previous</a>
+      </li>
+
+      <% for(let pageNo = 1; pageNo <= totalPage; page++) { console.log(totalPage)%>
+      <li class="page-item <%= currentPage === pageNo ? 'active' : ''%>">
+        <a href="<%=`/search?term=${searchTerm}&page=${pageNo}`%>" class="page-link"> <%= pageNo%> </a>
+      </li>
+      <% }%>
+
+
+      <li class="page-item <%= currentPage === totalPage ? 'disabled' : ''%>">
+        <a href="<%=`/search?term=${searchTerm}&page=${currentPage + 1}`%>" class="page-link">Next</a>
+      </li>
+
+    </ul>
+    <%}%>
+  </div>
+</div>
+<%- include('../../partials/siteFooter.ejs')%>
+    <script src="/scripts/bookmark.js"></script>
+    </body>
+
+    </html>
