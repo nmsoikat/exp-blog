@@ -1,2 +1,4 @@
 /node_modules
 .env
+app_old.js
+package_old.json
