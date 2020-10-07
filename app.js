@@ -69,28 +69,3 @@ mongoose
     console.log("Connection Failed")
     return console.log("Error" + err)
   })
-
-// <iframe width="650" height="1600" src="https://www.b-cause.co.jp/company-info-common.html"
-// scrolling="auto" frameborder="0"></iframe>
-
-/*
-http://www.patent-trans.jp/service/dtp.html
-http://www.patent-trans.jp/service/index.html
-http://www.patent-trans.jp/service/kousei.html
-http://www.patent-trans.jp/service/layout.html
-http://www.patent-trans.jp/service/mozi.html
-
-
-[patent-trans]
-service:
-- dtp page HTML design 2 H
-- responsive dtp page .5 H
-- top page HTML design 1.5 H
-- responsive top page .5 H
-- kousei page HTML design 1.5 H
-- responsive kousei page .5 H
-- layout page HTML design 1 H
-- mozi page HTML design 1 H
-[Others]
-- team meeting .5 H
-*/
