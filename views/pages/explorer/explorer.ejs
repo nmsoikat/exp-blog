@@ -1,76 +1,86 @@
 <%- include('../../partials/siteHeader.ejs')%>
-<div class="container">
-  <div class="row my-5">
-    <div class="col-md-12">
-      <section class="mb-3">
-        <a href="/explorer?filter=latest"
-          class="btn <%= filter === 'latest' ? 'btn-primary':'btn-secondary' %>">Latest</a>
-        <a href="/explorer?filter=week" class="btn <%= filter === 'week' ? 'btn-primary': 'btn-secondary' %>">Week</a>
-        <a href="/explorer?filter=month"
-          class="btn <%= filter === 'month' ? 'btn-primary': 'btn-secondary' %>">Month</a>
-        <a href="/explorer?filter=all" class="btn <%= filter === 'all' ? 'btn-primary': 'btn-secondary' %>">All</a>
-      </section>
-    </div>
-  </div>
-  <div class="row my-5">
-    <%if(posts.length === 0 ) {%>
-    <div class="col-sm-12">
-      <p class="text-center">There is no post!</p>
-    </div>
-    <%} else {%>
-    <% for(const post of posts) {%>
-    <div class="col-sm-8 offset-sm-2 mb-3">
-      <div class="card card-body ">
-        <% if(post.thumbnail) {%>
-        <img src="<%= post.thumbnail%>" alt="<%= post.title%>" class="img-fluid mh-3">
-        <%}%>
-        <a href="<%= `/explorer/${post._id}`%>" class="text-info">
-        <h5><%= post.title%></h5>
-        </a>
-        <p><%= truncate(post.body) %></p>
-        <small class="text-muted">
-          <%=moment(post.createdAt)%>,
-          Author: <a href="<%= `/author/${post.author._id}`%>"><%= post.author.username %></a>,
-          Read Time: <%= post.readTime%>
-        </small>
-        <%if(user){%>
-        <small class="ml-auto bookmark" data-post="<%= post._id%>">
-          <% if(bookmarks.includes(post._id)){ %>
-          <i class="fas fa-bookmark"></i>
-          <% } else{%>
-          <i class="far fa-bookmark"></i>
-          <%}%>
-        </small>
-        <%}%>
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-md-12">
+        <section class="mb-3">
+          <a href="/explorer?filter=latest"
+            class="btn <%= filter === 'latest' ? 'btn-primary':'btn-secondary' %>">Latest</a>
+          <a href="/explorer?filter=week" class="btn <%= filter === 'week' ? 'btn-primary': 'btn-secondary' %>">Week</a>
+          <a href="/explorer?filter=month"
+            class="btn <%= filter === 'month' ? 'btn-primary': 'btn-secondary' %>">Month</a>
+          <a href="/explorer?filter=all" class="btn <%= filter === 'all' ? 'btn-primary': 'btn-secondary' %>">All</a>
+        </section>
       </div>
     </div>
-    <%}%>
+    <div class="row my-5">
+      <%if(posts.length===0 ) {%>
+        <div class="col-sm-12">
+          <p class="text-center">There is no post!</p>
+        </div>
+        <%} else {%>
+          <% for(const post of posts) {%>
+            <div class="col-sm-8 offset-sm-2 mb-3">
+              <div class="card card-body ">
+                <% if(post.thumbnail) {%>
+                  <div class="post-thumbnail">
+                    <img src="<%= post.thumbnail%>" alt="<%= post.title%>" class="img-fluid mh-3">
+                  </div>
+                  <%}%>
+                    <a href="<%= `/explorer/${post._id}`%>" class="text-info">
+                      <h5>
+                        <%= post.title%>
+                      </h5>
+                    </a>
+                    <p>
+                      <%= truncate(post.body) %>
+                    </p>
+                    <small class="text-muted">
+                      <%=moment(post.createdAt)%>,
+                        Author: <a href="<%= `/author/${post.author._id}`%>">
+                          <%= post.author.username %>
+                        </a>,
+                        Read Time: <%= post.readTime%>
+                    </small>
+                    <%if(user){%>
+                      <small class="ml-auto bookmark" data-post="<%= post._id%>">
+                        <% if(bookmarks.includes(post._id)){ %>
+                          <i class="fas fa-bookmark"></i>
+                          <% } else{%>
+                            <i class="far fa-bookmark"></i>
+                            <%}%>
+                      </small>
+                      <%}%>
+              </div>
+            </div>
+            <%}%>
+              <%}%>
+    </div>
+
+    <div class="row my-5">
+      <% if(totalPage> 1) {%>
+        <ul class="pagination mx-auto">
+          <li class="page-item <%= currentPage === 1 ? 'disabled' : ''%>">
+            <a href="<%=`/explorer?filter=${filter}&page=${currentPage - 1}`%>" class="page-link">Previous</a>
+          </li>
+
+          <% for(let page=1; page <=totalPage; page++) { console.log(totalPage)%>
+            <li class="page-item <%= currentPage === page ? 'active' : ''%>">
+              <a href="<%=`/explorer?filter=${filter}&page=${page}`%>" class="page-link">
+                <%= page%>
+              </a>
+            </li>
+            <% }%>
+
+
+              <li class="page-item <%= currentPage === totalPage ? 'disabled' : ''%>">
+                <a href="<%=`/explorer?filter=${filter}&page=${currentPage + 1}`%>" class="page-link">Next</a>
+              </li>
+
+        </ul>
         <%}%>
+    </div>
   </div>
-
-  <div class="row my-5">
-    <% if(totalPage > 1) {%>
-    <ul class="pagination mx-auto">
-      <li class="page-item <%= currentPage === 1 ? 'disabled' : ''%>">
-        <a href="<%=`/explorer?filter=${filter}&page=${currentPage - 1}`%>" class="page-link">Previous</a>
-      </li>
-
-      <% for(let page = 1; page <= totalPage; page++) { console.log(totalPage)%>
-      <li class="page-item <%= currentPage === page ? 'active' : ''%>">
-        <a href="<%=`/explorer?filter=${filter}&page=${page}`%>" class="page-link"> <%= page%> </a>
-      </li>
-      <% }%>
-
-
-      <li class="page-item <%= currentPage === totalPage ? 'disabled' : ''%>">
-        <a href="<%=`/explorer?filter=${filter}&page=${currentPage + 1}`%>" class="page-link">Next</a>
-      </li>
-
-    </ul>
-    <%}%>
-  </div>
-</div>
-<%- include('../../partials/siteFooter.ejs')%>
+  <%- include('../../partials/siteFooter.ejs')%>
     <script src="/scripts/bookmark.js"></script>
     </body>
 

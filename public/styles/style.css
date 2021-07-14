@@ -13,3 +13,19 @@ footer p {
   padding: 20px 0px;
   color: #fff;
 }
+
+.navbar-brand,
+.nav-link {
+  color: #fff;
+  font-weight: 600;
+}
+
+.post-thumbnail {
+  max-height: 240px;
+  overflow: hidden;
+}
+
+/* 
+admin@gmail.com
+123456
+*/
